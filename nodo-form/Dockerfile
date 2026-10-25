@@ -5,6 +5,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends libpng-dev libj
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 RUN composer require dompdf/dompdf phpmailer/phpmailer --no-interaction
-COPY php.ini /usr/local/etc/php/conf.d/app.ini
-COPY app/ /var/www/html/
+COPY nodo-form/php.ini /usr/local/etc/php/conf.d/app.ini
+COPY nodo-form/app/ /var/www/html/
 RUN mkdir -p /var/www/data && chown -R www-data:www-data /var/www/data
