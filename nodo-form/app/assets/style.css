@@ -1,0 +1,25 @@
+:root{--p:#10294a;--a:#6ab43e;--bg:#f2f5f8;--t:#1c2530;--m:#5d6b7a}
+body[data-brand=changan]{--p:#1b3d94;--a:#6ab43e}
+body[data-brand=foton]{--p:#3d4a5c;--a:#00bcd8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
+header img{display:block;width:100%;max-height:300px;object-fit:cover;object-position:center}
+main{max-width:760px;margin:0 auto;padding:16px 14px 60px}
+.bar{height:6px;background:#dde3ea;border-radius:3px;overflow:hidden}#bar{height:100%;width:0;background:var(--a);transition:width .3s}
+#stepname{margin:8px 0 14px;color:var(--m);font-size:14px}
+.step{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 3px #0001}
+h2{margin:0 0 4px;color:var(--p);font-size:22px}.hint{margin:0 0 16px;color:var(--m);font-size:14px}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
+input:not([type=radio]):not([type=checkbox]),select,textarea{width:100%;padding:10px;border:1px solid #c5ced8;border-radius:6px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--a);outline-offset:1px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}@media(max-width:600px){.g{grid-template-columns:1fr}}
+.opts{display:flex;gap:10px;flex-wrap:wrap}.opts label{display:flex;gap:8px;align-items:center;font-weight:500;margin:0;padding:10px 14px;border:1px solid #c5ced8;border-radius:6px;cursor:pointer}
+.opts label:has(input:checked){border-color:var(--p);background:color-mix(in srgb,var(--p) 8%,#fff)}
+.brand label{flex:1;justify-content:center;font-size:18px;font-weight:700;padding:16px}
+.card{border:1px solid #d5dce4;border-radius:8px;padding:6px 14px 14px;margin:12px 0;position:relative}
+.card .rm{position:absolute;right:10px;top:8px}.card h3{margin:10px 0 0;font-size:15px;color:var(--p)}
+.note{background:#fff7e0;border-left:4px solid #e0a800;padding:10px 12px;margin-top:12px;font-size:14px;border-radius:4px}
+button{font:inherit;border:0;border-radius:6px;padding:11px 20px;cursor:pointer}
+.nav{display:flex;justify-content:space-between;margin-top:18px}
+#next,#send,.add{background:var(--p);color:#fff}#prev,.rm{background:#e6ebf0;color:var(--t)}.rm{padding:4px 10px;font-size:13px}.add{background:var(--a);color:#fff;font-weight:600}
+.hp{position:absolute;left:-9999px}[hidden]{display:none!important}
+#done{background:#fff;border-radius:10px;padding:32px;text-align:center}
