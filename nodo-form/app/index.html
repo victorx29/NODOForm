@@ -13,9 +13,9 @@
 <label>Dirección (enlace de Google Maps)</label><input name="direccion" required placeholder="Pega el enlace de Google Maps">
 <div class="g"><div><label>Ciudad</label><input name="ciudad" required></div><div><label>Estado</label><select name="estado" required><option value="">Selecciona</option><option>Amazonas</option><option>Anzoátegui</option><option>Apure</option><option>Aragua</option><option>Barinas</option><option>Bolívar</option><option>Carabobo</option><option>Cojedes</option><option>Delta Amacuro</option><option>Distrito Capital</option><option>Falcón</option><option>Guárico</option><option>La Guaira</option><option>Lara</option><option>Mérida</option><option>Miranda</option><option>Monagas</option><option>Nueva Esparta</option><option>Portuguesa</option><option>Sucre</option><option>Táchira</option><option>Trujillo</option><option>Yaracuy</option><option>Zulia</option></select></div></div>
 <label>Teléfono principal (WhatsApp)</label><input name="whatsapp" type="tel" required>
-<label>¿Tiene sucursal?</label><div class="opts"><label><input type="radio" name="sucursal" value="si" required>Sí</label><label><input type="radio" name="sucursal" value="no">No</label></div>
-<div data-when="sucursal=si" hidden><label>Nombre y dirección de la sucursal</label><input name="sucursal_detalle" required><label>Ubicación de la sucursal (enlace de Google Maps)</label><input name="sucursal_ubicacion" required></div>
-<label>Áreas que atiende</label><div class="opts"><label><input type="checkbox" name="servicios[]" value="Ventas">Ventas</label><label><input type="checkbox" name="servicios[]" value="Servicio">Servicio (taller)</label><label><input type="checkbox" name="servicios[]" value="Repuestos">Repuestos</label></div>
+<label>¿Tiene Punto de Venta (sucursal)?</label><div class="opts"><label><input type="radio" name="sucursal" value="si" required>Sí</label><label><input type="radio" name="sucursal" value="no">No</label></div>
+<div data-when="sucursal=si" hidden><label>Nombre y dirección del punto de venta</label><input name="sucursal_detalle" required><label>Ubicación del punto de venta (enlace de Google Maps)</label><input name="sucursal_ubicacion" required><label>Horario del punto de venta</label><input name="sucursal_horario" required placeholder="Lun a Vie 8:00 a 17:00, Sáb 8:00 a 12:00"></div>
+
 </section>
 
 <section class="step" hidden><h2>Horarios y feriados</h2><p class="hint">Escribe los días y horas de atención de cada área.</p>
@@ -32,12 +32,12 @@
 <div class="note" data-when="mail=no" hidden>Sin problema: la marca te entregará una cuenta de correo con licencia. Más adelante te avisamos.</div></section>
 
 <section class="step" hidden><h2>Contactos</h2>
-<h3>Persona de contacto responsable para la implementación</h3><div class="g"><div><label>Nombre</label><input name="s_nombre" required></div><div><label>Cargo</label><input name="s_cargo" required></div><div><label>Teléfono</label><input name="s_tlf" type="tel" required></div><div><label>Correo</label><input name="s_correo" type="email" required></div></div>
-<h3>Persona responsable de atención al CRM</h3><div class="g"><div><label>Nombre</label><input name="c_nombre" required></div><div><label>Teléfono corporativo</label><input name="c_tlf" type="tel" required></div><div><label>Correo corporativo</label><input name="c_correo" type="email" required></div></div></section>
+<h3>Persona de seguimiento de la implementación</h3><div class="g"><div><label>Nombre</label><input name="s_nombre" required></div><div><label>Cargo</label><input name="s_cargo" required></div><div><label>Teléfono</label><input name="s_tlf" type="tel" required></div><div><label>Correo</label><input name="s_correo" type="email" required></div></div>
+<h3>Responsable de atención del CRM</h3><div class="g"><div><label>Nombre</label><input name="c_nombre" required></div><div><label>Teléfono corporativo</label><input name="c_tlf" type="tel" required></div><div><label>Correo corporativo</label><input name="c_correo" type="email" required></div></div></section>
 
 <section class="step" hidden><h2>Usuarios del CRM</h2><p class="hint">Todas las personas que usarán el CRM: ventas, servicio, repuestos y gerencia. Marca «Es asesor» si atiende clientes y podría tener perfil público. La foto es opcional, pero recomendada para todos (de frente, buena calidad).</p><div id="lu"></div><button type="button" class="add" data-add="lu">+ Agregar usuario</button></section>
 
-<section class="step" hidden><h2>Información Adicional</h2><label> ¡Tus dudas o comentarios aqui!</label><textarea name="obs" rows="4"></textarea>
+<section class="step" hidden><h2>Confirmación</h2><label>Observaciones (opcional)</label><textarea name="obs" rows="4"></textarea>
 <label class="opts" style="display:flex;border:0;padding:0;margin-top:16px"><input type="checkbox" name="acepto" value="1" required style="margin-top:4px"><span style="font-weight:500">Confirmo que los datos son correctos y que los usuarios autorizaron el uso de sus datos y fotos en el CRM.</span></label>
 <p class="hint" id="wait" hidden>Enviando… no cierres esta página, las fotos pueden tardar.</p></section>
 
