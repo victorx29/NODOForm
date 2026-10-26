@@ -16,11 +16,8 @@ usort($rows, fn($a, $b) => strcmp($b['fecha'], $a['fecha']));
 $id = $_GET['id'] ?? '';
 if (isset($_GET['dl']) && $_GET['dl'] === 'csv') {
   header('Content-Type: text/csv; charset=utf-8'); header('Content-Disposition: attachment; filename=nodo-personas.csv'); echo "\xEF\xBB\xBF";
-  $o = fopen('php://output', 'w'); fputcsv($o, ['Marca', 'Concesionario', 'Ciudad', 'Tipo', 'Área/Cargo', 'Rol', 'Nombre', 'Teléfono/WhatsApp', 'Correo', 'Foto'], ';');
-  foreach ($rows as $r) {
-    foreach ($r['usuarios'] as $u) fputcsv($o, [$r['marca'], $r['nombre'], $r['ciudad'], 'Usuario', $u['area'], $u['rol'], $u['nombre'], $u['tlf'], $u['correo'], ''], ';');
-    foreach ($r['asesores'] as $a) fputcsv($o, [$r['marca'], $r['nombre'], $r['ciudad'], 'Asesor', $a['cargo'], '', $a['nombre'], $a['whatsapp'], $a['correo'], $a['foto']], ';');
-  }
+  $o = fopen('php://output', 'w'); fputcsv($o, ['Marca', 'Concesionario', 'Ciudad', 'Área', 'Rol', 'Es asesor', 'Nombre', 'Teléfono', 'Correo', 'Foto'], ';');
+  foreach ($rows as $r) foreach ($r['usuarios'] as $u) fputcsv($o, [$r['marca'], $r['nombre'], $r['ciudad'], $u['area'], $u['rol'], ($u['asesor'] ?? '') === 'si' ? 'Sí' : 'No', $u['nombre'], $u['tlf'], $u['correo'], $u['foto'] ?? ''], ';');
   exit;
 }
 if (isset($_GET['dl']) && preg_match('/^[0-9a-z_-]+$/', $id) && is_dir("$DATA/$id")) {
@@ -31,9 +28,6 @@ if (isset($_GET['dl']) && preg_match('/^[0-9a-z_-]+$/', $id) && is_dir("$DATA/$i
     header('Content-Type: application/zip'); header("Content-Disposition: attachment; filename=$id.zip"); readfile($t); unlink($t); exit;
   }
 }
-echo '<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">'.$CSS.'<body><div class=w><h2>Envíos recibidos (' . count($rows) . ')</h2><div class=top><a class=b href="?dl=csv">Exportar usuarios y asesores (CSV)</a><a href="?out=1">Salir</a></div><div class=box><table><tr><th>Fecha<th>Marca<th>Concesionario<th>Ciudad<th>Usuarios<th>Asesores<th>Correo<th>Descargas</tr>';
-foreach ($rows as $r) echo '<tr><td>' . e(substr($r['fecha'], 0, 16)) . '<td>' . e($r['marca']) . '<td>' . e($r['nombre']) . '<td>' . e($r['ciudad']) . '<td>' . count($r['usuarios']) . '<td>' . count($r['asesores']) . '<td>' . ($r['correo_enviado'] ? '<span class=ok>Enviado</span>' : '<span class=ko>Falló</span>') . '<td><a href="?dl=pdf&id=' . e($r['id']) . '">PDF</a> · <a href="?dl=zip&id=' . e($r['id']) . '">ZIP (fotos y datos)</a></tr>';
+echo '<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">'.$CSS.'<body><div class=w><h2>Envíos recibidos (' . count($rows) . ')</h2><div class=top><a class=b href="?dl=csv">Exportar usuarios (CSV)</a><a href="?out=1">Salir</a></div><div class=box><table><tr><th>Fecha<th>Marca<th>Concesionario<th>Ciudad<th>Usuarios<th>Asesores<th>Correo<th>Descargas</tr>';
+foreach ($rows as $r) echo '<tr><td>' . e(substr($r['fecha'], 0, 16)) . '<td>' . e($r['marca']) . '<td>' . e($r['nombre']) . '<td>' . e($r['ciudad']) . '<td>' . count($r['usuarios']) . '<td>' . (count(array_filter($r['usuarios'], fn($u) => ($u['asesor'] ?? '') === 'si')) + count($r['asesores'] ?? [])) . '<td>' . ($r['correo_enviado'] ? '<span class=ok>Enviado</span>' : '<span class=ko>Falló</span>') . '<td><a href="?dl=pdf&id=' . e($r['id']) . '">PDF</a> · <a href="?dl=zip&id=' . e($r['id']) . '">ZIP (fotos y datos)</a></tr>';
 echo '</table></div></div>';
-echo '<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><body style="font-family:sans-serif;margin:16px"><h2>Envíos recibidos (' . count($rows) . ')</h2><p><a href="?dl=csv">Exportar usuarios y asesores (CSV para Excel)</a> · <a href="?out=1">Salir</a></p><div style="overflow-x:auto"><table border=1 cellpadding=6 style="border-collapse:collapse"><tr><th>Fecha<th>Marca<th>Concesionario<th>Ciudad<th>Usuarios<th>Asesores<th>Correo<th>Descargas</tr>';
-foreach ($rows as $r) echo '<tr><td>' . e(substr($r['fecha'], 0, 16)) . '<td>' . e($r['marca']) . '<td>' . e($r['nombre']) . '<td>' . e($r['ciudad']) . '<td>' . count($r['usuarios']) . '<td>' . count($r['asesores']) . '<td>' . ($r['correo_enviado'] ? 'Enviado' : 'Falló') . '<td><a href="?dl=pdf&id=' . e($r['id']) . '">PDF</a> · <a href="?dl=zip&id=' . e($r['id']) . '">ZIP (fotos y datos)</a></tr>';
-echo '</table></div>';
