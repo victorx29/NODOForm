@@ -38,8 +38,7 @@ $dir = "$DATA/submissions/$id";
 if (!mkdir($dir, 0750, true)) out(false, 'No se pudo guardar');
 
 $d = ['id' => $id, 'fecha' => date('c')];
-foreach (['marca','nombre','rif','direccion','ciudad','estado','whatsapp','sucursal','sucursal_detalle','sucursal_ubicacion','h_ventas','h_servicio','h_repuestos','feriados','r_instagram','r_facebook','r_tiktok','r_youtube','r_web','r_otras','dom','dominio','mail','m_principal','m_ventas','m_servicio','m_repuestos','s_nombre','s_cargo','s_tlf','s_correo','c_nombre','c_tlf','c_correo','obs'] as $k) $d[$k] = p($k);
-$d['servicios'] = arr('servicios');
+foreach (['marca','nombre','rif','direccion','ciudad','estado','whatsapp','sucursal','sucursal_detalle','sucursal_ubicacion','sucursal_horario','h_ventas','h_servicio','h_repuestos','feriados','r_instagram','r_facebook','r_tiktok','r_youtube','r_web','r_otras','dom','dominio','mail','m_principal','m_ventas','m_servicio','m_repuestos','s_nombre','s_cargo','s_tlf','s_correo','c_nombre','c_tlf','c_correo','obs'] as $k) $d[$k] = p($k);
 $d['usuarios'] = [];
 for ($i = 0; $i < $nu; $i++) {
   $t = $_FILES['u_foto']['tmp_name'][$i] ?? ''; $ok = $t && ($_FILES['u_foto']['error'][$i] ?? 4) === 0;
@@ -53,7 +52,7 @@ $col = $d['marca'] === 'foton' ? '#3d4a5c' : '#1b3d94';
 $r = fn($a, $b) => $b === '' ? '' : '<tr><td class=k>' . e($a) . '</td><td>' . e($b) . '</td></tr>';
 $h = "<style>body{font-family:DejaVu Sans;font-size:9px;color:#222}h1{background:$col;color:#fff;padding:8px;font-size:14px;margin:0}h2{color:$col;font-size:11px;border-bottom:1px solid $col;margin:12px 0 4px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ccc;padding:3px;text-align:left;vertical-align:middle}.k{width:28%;background:#f1f3f6;font-weight:bold}img{width:50px}</style>";
 $h .= '<h1>Nodo CRM · ' . e(strtoupper($d['marca'])) . ' · ' . e($d['nombre']) . '</h1><p>Recibido: ' . e(date('d/m/Y H:i')) . '</p>';
-$h .= '<h2>Concesionario</h2><table>' . $r('RIF', $d['rif']) . $r('Dirección', $d['direccion']) . $r('Ciudad / Estado', $d['ciudad'] . ' / ' . $d['estado']) . $r('Teléfono principal (WhatsApp)', $d['whatsapp']) . $r('Sucursal', $d['sucursal'] === 'si' ? $d['sucursal_detalle'] : 'No') . $r('Ubicación sucursal', $d['sucursal_ubicacion']) . $r('Áreas', implode(', ', $d['servicios'])) . '</table>';
+$h .= '<h2>Concesionario</h2><table>' . $r('RIF', $d['rif']) . $r('Dirección', $d['direccion']) . $r('Ciudad / Estado', $d['ciudad'] . ' / ' . $d['estado']) . $r('Teléfono principal (WhatsApp)', $d['whatsapp']) . $r('Punto de venta', $d['sucursal'] === 'si' ? $d['sucursal_detalle'] : 'No') . $r('Ubicación punto de venta', $d['sucursal_ubicacion']) . $r('Horario punto de venta', $d['sucursal_horario']) . '</table>';
 $h .= '<h2>Horarios</h2><table>' . $r('Ventas', $d['h_ventas']) . $r('Servicio', $d['h_servicio']) . $r('Repuestos', $d['h_repuestos']) . $r('Feriados', $d['feriados']) . '</table>';
 $h .= '<h2>Presencia digital</h2><table>' . $r('Instagram', $d['r_instagram']) . $r('Facebook', $d['r_facebook']) . $r('TikTok', $d['r_tiktok']) . $r('YouTube', $d['r_youtube']) . $r('Web', $d['r_web']) . $r('Otras', $d['r_otras']) . $r('Dominio propio', $d['dom'] === 'si' ? $d['dominio'] : 'No') . $r('Correos corporativos', $d['mail'] === 'si' ? 'Sí' : 'No (la marca entrega cuenta)') . $r('Correo principal', $d['m_principal']) . $r('Correo Ventas', $d['m_ventas']) . $r('Correo Servicio', $d['m_servicio']) . $r('Correo Repuestos', $d['m_repuestos']) . '</table>';
 $h .= '<h2>Contactos</h2><table>' . $r('Seguimiento', "{$d['s_nombre']} · {$d['s_cargo']} · {$d['s_tlf']} · {$d['s_correo']}") . $r('Responsable CRM', "{$d['c_nombre']} · {$d['c_tlf']} · {$d['c_correo']}") . '</table>';
